@@ -3,9 +3,9 @@ import plotly.graph_objects as go
 
 
 class acc_field:
-    def __init__(self, orbit, n, masking = 3):
-        self.bodies = orbit["bodies"]
-        self.angular_vel = orbit["angular_vel"]
+    def __init__(self, bodies, angular_vel, n = 500, masking = 3):
+        self.bodies = bodies
+        self.angular_vel = angular_vel
         self.masking = masking
 
         self.xlim = self.ylim = 3/2 * max([abs(body["position"]) for body in self.bodies])
@@ -38,13 +38,13 @@ class acc_field:
         return acc_rel
 
 
-    def contour(self):
+    def contour(self, lines = False):
         fig = go.Figure(data = 
                         go.Contour(
                             x=self.x[:,0],
                             y=self.y[0,:],
                             z=np.abs(self.g).T,
-                            contours_coloring='lines',
+                            contours_coloring = 'lines' if lines else 'fill',
                             contours=dict(
                                 start=0,
                                 end=np.average(np.abs(self.g))/self.masking)
@@ -55,11 +55,14 @@ class acc_field:
 
 
 def main():
+    # Earth-Moon reference frame angular velocity
     angular_vel = 2*np.pi/(28*24*3600)
-    bodies = [dict(mu = 3.986004418e14, position = 0, radius = 6.371e6),        # Earth
-              dict(mu = 4.9048695e12, position = 384.4e6, radius = 1.7374e6)]   # Moon
 
-    lagrange = acc_field(dict(bodies = bodies, angular_vel = angular_vel), 100, 1.5)
+    # Earth & Moon characteristics                             
+    bodies = [dict(mu = 3.986004418e14, position = 0, radius = 6.371e6),
+              dict(mu = 4.9048695e12, position = 384.4e6, radius = 1.7374e6)]
+
+    lagrange = acc_field(bodies, angular_vel, masking = 1.5)
     lagrange.contour()
 
 
