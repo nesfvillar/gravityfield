@@ -1,2 +1,4 @@
-gravity/
-__pycache__/
+python/
+MANIFEST
+dist/
+test.py
