@@ -2,3 +2,5 @@ python/
 MANIFEST
 dist/
 test.py
+.vscode/
+gravityfield/__pycache__/

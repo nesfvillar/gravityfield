@@ -8,7 +8,7 @@ setup(
   author = 'Nestor Fabian Villar',
   author_email = 'nesfvillar@gmail.com',
   url = 'https://github.com/user/gravityfield',
-  download_url = 'https://github.com/user/gravityfield/archive/v_01.tar.gz',
+  download_url = 'https://github.com/nesfvillar/gravityfield/archive/refs/tags/v_01.tar.gz',
   keywords = ['science, orbit, celestial, mechanics, rocket'],
   install_requires=[
           'numpy',
